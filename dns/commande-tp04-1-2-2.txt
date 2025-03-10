@@ -1,0 +1,2 @@
+docker run                 -d         --name=dns         -p 53:53/udp         -p 53:53/tcp         --mount type=bind,source=$HOME/admin-2/dns/dns-files/named.conf,target=/etc/bind/named.conf         --mount type=bind,source=$HOME/admin-2/dns/dns-files/1l-9.zone,target=/etc/bind/1l-9.zone         internetsystemsconsortium/bind9:9.18
+
