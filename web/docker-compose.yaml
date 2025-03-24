@@ -1,0 +1,32 @@
+networks:
+  dmz_net:
+  db_net:
+
+services:
+  web:
+    build: .
+    container_name: web
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    volumes:
+      - ./web-files/html/:/var/www/html/
+    networks:
+      - dmz_net
+
+  php:
+    build: ./web-files/php
+    container_name: php
+    volumes:
+      - ./web-files/html/www:/var/www/html/www
+    networks:
+      - dmz_net
+      - db_net
+
+  db:
+    image: mariadb:latest
+    container_name: mariadb
+    env_file:
+      - ./web-files/sql/.env
+    networks:
+      - db_net
