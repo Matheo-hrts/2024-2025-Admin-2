@@ -2,14 +2,17 @@ $ORIGIN l1-9.ephec-ti.be.
 $TTL 84600
 
 @	IN	SOA	ns.l1-9.ephec-ti.be.	hostmaster.l1-9.ephec-ti.be. (
-			2025031002 ; serial                     
+			2025031003 ; serial                     
 			21600      ; refresh after 6 hours                     
 			3600       ; retry after 1 hour                     
 			604800     ; expire after 1 week                     
 			86400 )    ; minimum TTL of 1 day
 
-	IN 	NS	ns.l1-9.ephec-ti.be.
+	IN	NS	ns.l1-9.ephec-ti.be.
 
 	IN	A	54.36.182.163
 ns	IN	A	54.36.182.163
 www	IN	A	54.36.182.163
+blog	IN	CNAME	www
+mail	IN	A	54.36.182.163
+l1-9.ephec-ti.be.  IN  MX  10  mail.l1-9.ephec-ti.be.

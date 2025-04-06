@@ -3,14 +3,17 @@ networks:
   db_net:
 
 services:
-  web:
+  nginx:
     build: .
     container_name: web
     ports:
       - "80:80"
+      - "443:443"
     restart: unless-stopped
     volumes:
       - ./web-files/html/:/var/www/html/
+      - ./web-files/letsencrypt-files/:/etc/letsencrypt/
+      - ./web-files/config/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - dmz_net
 
@@ -18,15 +21,21 @@ services:
     build: ./web-files/php
     container_name: php
     volumes:
-      - ./web-files/html/www:/var/www/html/www
+      - ./web-files/html/:/var/www/html/
     networks:
       - dmz_net
       - db_net
+    env_file:
+      - ./web-files/sql/db.env
 
   db:
-    image: mariadb:latest
+    image: mariadb:11.1
     container_name: mariadb
     env_file:
-      - ./web-files/sql/.env
+      - ./web-files/sql/root.env
+      - ./web-files/sql/db.env
     networks:
       - db_net
+    volumes:
+      - ./web-files/sql/:/docker-entrypoint-initdb.d/
+      - ./web-files/backup_database/:/var/lib/mysql/

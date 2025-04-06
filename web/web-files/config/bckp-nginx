@@ -29,30 +29,9 @@ http {
 
 	
 	server {
+	    listen	    80;
 	    server_name     blog.l1-9.ephec-ti.be;
 	    index	    blog.html;
 	    root	    /var/www/html/blog/;	
-	    return 301 https://$host$request_uri;
-	
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/blog.l1-9.ephec-ti.be/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/blog.l1-9.ephec-ti.be/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
+	}
 }
-
-
-	
-	server {
-    if ($host = blog.l1-9.ephec-ti.be) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-	    listen	    80;
-	    server_name     blog.l1-9.ephec-ti.be;
-    return 404; # managed by Certbot
-
-
-}}
