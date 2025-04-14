@@ -2,7 +2,7 @@ $ORIGIN l1-9.ephec-ti.be.
 $TTL 84600
 
 @	IN	SOA	ns.l1-9.ephec-ti.be.	hostmaster.l1-9.ephec-ti.be. (
-			2025031003 ; serial                     
+			2025031004 ; serial                     
 			21600      ; refresh after 6 hours                     
 			3600       ; retry after 1 hour                     
 			604800     ; expire after 1 week                     
@@ -15,4 +15,10 @@ ns	IN	A	54.36.182.163
 www	IN	A	54.36.182.163
 blog	IN	CNAME	www
 mail	IN	A	54.36.182.163
-l1-9.ephec-ti.be.  IN  MX  10  mail.l1-9.ephec-ti.be.
+l1-9.ephec-ti.be.	IN	MX  10  mail.l1-9.ephec-ti.be.
+l1-9.ephec-ti.be.	IN	TXT "v=spf1 mx -all"
+mail._domainkey	IN	TXT	( "v=DKIM1; h=sha256; k=rsa; "
+	 "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtreFCBDdbKPmBXBaNDN39rsFVJm53AeTIyq3PGKttQAOXJl30IbSDqs9aDkpET9VI8ik0/dlMOzseARG+M3gbphZefX+8nS/M4oewEMOuDPmdsoqHmTwWbxj1L5j5de93HHaBNvNcLGFA8ydTZuKx13CLJoQpjVCSOfJqFlv8M7M8XczmiyfBz0qSRgr8Zgk1OkUfGkLLaaEE4"
+	 "DQ9qr5QEB1IguL0jYVnx9XtAkfW6CyOhPU724v0vEmIXD5ZWLZ8o4ecdtxUQINndPIOrXAN7lKctU4ksrgZHFCURooB/BoAguYcYrsWJBKBJJY1FYAOS0hgjXbIN6RfAo3Ak082QIDAQAB" )  ; ----- DKIM key mail for l1-9.ephec-ti.be
+_dmarc.l1-9.ephec-ti.be. IN TXT "v=DMARC1; p=none; rua=mailto:user@l1-9.ephec-ti.be; ruf=mailto:user@l1-9.ephec-ti.be; sp=none; ri=86400"
+
