@@ -13,6 +13,8 @@ $TTL 84600
 	IN	A	54.36.182.163
 ns	IN	A	54.36.182.163
 www	IN	A	54.36.182.163
+www	IN	A	54.36.183.201
+www	IN	A	54.36.180.61
 blog	IN	CNAME	www
 mail	IN	A	54.36.182.163
 l1-9.ephec-ti.be.	IN	MX  10  mail.l1-9.ephec-ti.be.
