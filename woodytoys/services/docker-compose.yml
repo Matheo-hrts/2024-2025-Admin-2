@@ -12,11 +12,11 @@ services:
     ports:
       - '3306:3306'
 
-  api:
-    build: ./api
-    restart: always
-    links:
-      - "db"
+        #   api:
+        # build: ./api
+        # restart: always
+        # links:
+        # - "db"
 
   front:
     build: ./front
@@ -27,10 +27,29 @@ services:
       - "80:8080"
     depends_on:
       - front
-      - api
+      - misc-api
+      - products-api
+      - orders-api
 
   redis:
     image: redis:8.0.0
     ports:
       - "6379:6379"
 
+  misc-api:
+    build: ./misc-api/
+    restart: always
+    links:
+      - 'db'
+
+  products-api:
+    build: ./products-api/
+    restart: always
+    links:
+      - 'db'
+
+  orders-api:
+    build: ./orders-api/
+    restart: always
+    links:
+      - 'db'
