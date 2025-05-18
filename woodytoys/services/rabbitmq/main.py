@@ -3,6 +3,8 @@ import pika
 import time
 import sys
 import os
+import json
+
 
 def connect_to_rabbitmq():
     """Keep trying to connect until RabbitMQ is ready."""
@@ -34,7 +36,7 @@ def main():
         message = json.loads(body)
         order_id = message['order_id']
         order_product = message['order_product']
-        print(f" [x] Received: order id = {prder_id}, order product = {order_product}", flush=True)
+        print(f" [x] Received: order id = {order_id}, order product = {order_product}", flush=True)
         process_order(order_id, order_product)
 
     channel.basic_consume(

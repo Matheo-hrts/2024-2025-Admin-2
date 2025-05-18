@@ -98,8 +98,6 @@ services:
     depends_on:
       - rabbitmq
     restart: always
-        #    volumes:
-        #- ./rabbitmq:/app
     working_dir: /app
     networks:
       - swarm_net
