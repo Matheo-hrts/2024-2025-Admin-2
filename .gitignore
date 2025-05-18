@@ -10,3 +10,5 @@ mail-2/*
 */docker-data/*
 
 web/web-files/backup_database/*
+
+*/venv/*

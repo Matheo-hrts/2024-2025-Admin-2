@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   db:
-    build: ./database
+    image: matheohrts/woody_database:latest
     cap_add:
       - SYS_NICE
     restart: always
@@ -11,45 +11,100 @@ services:
       - MYSQL_ROOT_PASSWORD=pass
     ports:
       - '3306:3306'
+    networks:
+      - swarm_net
+    deploy:
+      replicas: 3
 
-        #   api:
-        # build: ./api
-        # restart: always
-        # links:
-        # - "db"
 
   front:
-    build: ./front
+    image: matheohrts/woody_front:latest
+    deploy:
+      replicas: 3
+    networks:
+      - swarm_net
+
 
   reverse:
-    build: ./reverse-proxy
+    restart: always
+    image: matheohrts/woody_rp:latest
     ports:
-      - "80:8080"
+      - "8081:8080"
     depends_on:
       - front
       - misc-api
       - products-api
       - orders-api
+    networks:
+      - swarm_net
+    deploy:
+      replicas: 3
+
 
   redis:
     image: redis:8.0.0
     ports:
       - "6379:6379"
+    networks:
+      - swarm_net
+    deploy:
+      replicas: 3
 
   misc-api:
-    build: ./misc-api/
+    image: matheohrts/woody_misc_api:latest
     restart: always
     links:
       - 'db'
+    networks:
+      - swarm_net
+    deploy:
+      replicas: 3
 
   products-api:
-    build: ./products-api/
+    image: matheohrts/woody_products_api:latest
     restart: always
     links:
       - 'db'
+    networks:
+      - swarm_net
+    deploy:
+      replicas: 3
 
   orders-api:
-    build: ./orders-api/
+    image: matheohrts/woody_orders_api:latest
     restart: always
     links:
       - 'db'
+    networks:
+      - swarm_net
+    deploy:
+      replicas: 3
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - swarm_net
+    deploy:
+      replicas: 3
+
+  worker:
+    image: matheohrts/woody_worker:latest
+    depends_on:
+      - rabbitmq
+    restart: always
+        #    volumes:
+        #- ./rabbitmq:/app
+    working_dir: /app
+    networks:
+      - swarm_net
+    deploy:
+      replicas: 3
+
+networks:
+  swarm_net:
