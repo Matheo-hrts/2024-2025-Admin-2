@@ -46,7 +46,7 @@ def create_order():
     print(" [x] Sent order details")
     connection.close()
 
-    return f"Your process {order_id} has been created with this product : {product} and I also test"
+    return f"Your process {order_id} has been created with this product : {product}"
 
 
 @app.route('/api/orders/', methods=['GET'])
